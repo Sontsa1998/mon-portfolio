@@ -34,10 +34,12 @@
     "scrollHint": "Scroll"
   },
   "stats": {
-    "projects": "Projects delivered",
-    "prAuc": "Better than chance (churn PR-AUC)",
-    "features": "Engineered features (churn)",
-    "categories": "Areas of expertise"
+    "aiSystems": "AI Systems Built",
+    "llmFrameworks": "LLM Frameworks Mastered",
+    "documentsIndexed": "Documents Indexed",
+    "pipelineReliability": "Pipeline Reliability",
+    "costReduction": "Cost Reduction",
+    "fasterInference": "Faster Inference"
   },
   "about": {
     "kicker": "About",

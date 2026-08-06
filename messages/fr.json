@@ -34,10 +34,12 @@
     "scrollHint": "Défiler"
   },
   "stats": {
-    "projects": "Projets réalisés",
-    "prAuc": "Mieux que le hasard (PR-AUC churn)",
-    "features": "Features engineerées (churn)",
-    "categories": "Domaines d'expertise"
+    "aiSystems": "Systèmes IA conçus",
+    "llmFrameworks": "Frameworks LLM maîtrisés",
+    "documentsIndexed": "Documents indexés",
+    "pipelineReliability": "Fiabilité des pipelines",
+    "costReduction": "Réduction des coûts",
+    "fasterInference": "Inférence plus rapide"
   },
   "about": {
     "kicker": "À propos",
