@@ -1,0 +1,76 @@
+{
+  "slug": "churn-deep-learning-patrimoine",
+  "title": {
+    "fr": "Modèle de Deep Learning — Prédiction du Churn (secteur Patrimoine)",
+    "en": "Deep Learning Model — Churn Prediction (Wealth Management)"
+  },
+  "category": "ml-deep-learning",
+  "coverImage": "/images/projects/churn-deep-learning/cover.svg",
+  "gallery": [],
+  "summary": {
+    "fr": "Réseau de neurones dense pour anticiper la résiliation de clients actifs chez un éditeur de logiciels de gestion de patrimoine, avec une validation méthodologique poussée contre les fuites de données.",
+    "en": "Dense neural network anticipating churn among active clients of a wealth-management software vendor, built with rigorous safeguards against data leakage."
+  },
+  "context": {
+    "fr": "Harvest / BIG édite un logiciel de gestion de patrimoine utilisé par des CGPI, experts-comptables et notaires. L'objectif était de prédire, à partir d'un panel mensuel de contrats actifs, quels clients présentaient un risque de résiliation, afin de permettre aux équipes commerciales de cibler leurs campagnes de rétention avant le désabonnement plutôt qu'après.",
+    "en": "Harvest / BIG publishes wealth-management software used by independent financial advisors, chartered accountants and notaries. The goal was to predict, from a monthly panel of active contracts, which clients were at risk of cancelling — so that sales teams could target retention campaigns before churn happened rather than reacting after the fact."
+  },
+  "approach": {
+    "fr": "Nettoyage rigoureux du panel : détection et suppression des fuites de données, des identifiants redondants et des colonnes à variance nulle. Feature engineering ciblé, avec notamment une variable continue de « proximité de préavis contractuel » construite spécifiquement pour ce problème et validée par une contre-épreuve d'ablation. Le split d'entraînement/validation/test est groupé par contrat et respecte la temporalité (StratifiedGroupKFold), pour éliminer toute fuite d'information par entité ou par anticipation du futur. Le déséquilibre de classes est traité par pondération, et le seuil de décision final est calibré sur un objectif de rappel métier plutôt que sur le seuil brut à 0,5.",
+    "en": "Rigorous cleaning of the panel: detection and removal of data leakage, redundant identifiers and zero-variance columns. Targeted feature engineering, including a continuous \"contractual notice proximity\" variable built specifically for this problem and validated through an ablation counter-test. The train/validation/test split is grouped by contract and time-aware (StratifiedGroupKFold), eliminating any leakage through entity identity or look-ahead. Class imbalance is handled through weighting, and the final decision threshold is calibrated against a business recall target rather than the default 0.5 cut-off."
+  },
+  "architecture": {
+    "fr": "MLP dense implémenté en Keras/TensorFlow : Dense(96) → BatchNorm → Dropout → Dense(48) → BatchNorm → Dropout → Dense(24) → Dropout → sigmoïde. Régularisation L2 sur les couches denses, EarlyStopping et ReduceLROnPlateau pour stabiliser l'entraînement, exécuté sur CPU.",
+    "en": "Dense MLP implemented in Keras/TensorFlow: Dense(96) → BatchNorm → Dropout → Dense(48) → BatchNorm → Dropout → Dense(24) → Dropout → sigmoid. L2 regularization on dense layers, EarlyStopping and ReduceLROnPlateau to stabilize training, run on CPU."
+  },
+  "stack": ["Python", "TensorFlow", "Keras", "scikit-learn", "pandas", "matplotlib", "seaborn", "openpyxl"],
+  "architectureDiagram": {
+    "fr": "graph TD\n  DATA[(\"Panel mensuel — contrats actifs\")] --> CLEAN[\"Nettoyage & suppression fuites\"]\n  CLEAN --> FEAT[\"Feature engineering ciblé\"]\n  FEAT --> SPLIT[\"Split StratifiedGroupKFold (par contrat)\"]\n  SPLIT --> MLP[\"MLP Keras/TensorFlow régularisé\"]\n  MLP --> THRESH[\"Calibration seuil métier\"]\n  THRESH --> EXPORT[(\"Export Excel segmenté\")]\n  EXPORT -->|\"Ciblage rétention\"| CSM[\"Équipes commerciales\"]",
+    "en": "graph TD\n  DATA[(\"Monthly panel — active contracts\")] --> CLEAN[\"Cleaning & leakage removal\"]\n  CLEAN --> FEAT[\"Targeted feature engineering\"]\n  FEAT --> SPLIT[\"StratifiedGroupKFold split (by contract)\"]\n  SPLIT --> MLP[\"Regularized Keras/TensorFlow MLP\"]\n  MLP --> THRESH[\"Business threshold calibration\"]\n  THRESH --> EXPORT[(\"Segmented Excel export\")]\n  EXPORT -->|\"Retention targeting\"| CSM[\"Sales teams\"]"
+  },
+  "metrics": [
+    {
+      "label": "ROC-AUC (test indépendant)",
+      "value": "0.79",
+      "impact": {
+        "fr": "Capacité à distinguer clients à risque et clients stables, mesurée sur un jeu de test totalement indépendant de l'entraînement — condition nécessaire pour faire confiance au score en production.",
+        "en": "Ability to tell at-risk clients from stable ones, measured on a test set fully independent from training — a precondition for trusting the score in production."
+      }
+    },
+    {
+      "label": "PR-AUC",
+      "value": "0.185 (~2.6x hasard)",
+      "impact": {
+        "fr": "Sur un problème très déséquilibré (peu de résiliations), une PR-AUC 2,6 fois supérieure au hasard signifie que l'effort commercial se concentre sur les bons comptes plutôt que d'être dispersé.",
+        "en": "On a highly imbalanced problem (churn is rare), a PR-AUC 2.6x above chance means sales effort concentrates on the right accounts instead of being spread thin."
+      }
+    },
+    {
+      "label": "Features (finales / brutes)",
+      "value": "62 / 93",
+      "impact": {
+        "fr": "Réduction de 93 à 62 variables après élimination des fuites de données et colonnes redondantes : un modèle plus robuste et plus simple à maintenir dans la durée.",
+        "en": "Reduced from 93 to 62 variables after removing data leakage and redundant columns: a more robust model that's easier to maintain over time."
+      }
+    },
+    {
+      "label": "Rappel au seuil métier",
+      "value": "86%",
+      "impact": {
+        "fr": "86% des clients réellement à risque sont détectés au seuil retenu par les équipes commerciales, maximisant la couverture des campagnes de rétention sur les comptes qui comptent.",
+        "en": "86% of genuinely at-risk clients are caught at the threshold chosen by the sales teams, maximizing retention-campaign coverage on the accounts that matter."
+      }
+    }
+  ],
+  "results": {
+    "fr": "Livrable business exporté au format Excel exact attendu par les équipes commerciales : segmentation en niveaux de risque et mise en forme conditionnelle, permettant de cibler les campagnes de rétention sur les comptes à plus fort ARR en jeu.",
+    "en": "Business deliverable exported in the exact Excel format expected by the sales teams: risk-level segmentation with conditional formatting, enabling retention campaigns to be targeted at the accounts with the highest ARR at stake."
+  },
+  "challenges": {
+    "fr": "Détection d'un changement de régime de collecte de données masquant un biais de population, identification et exclusion d'un mois au label structurellement immature, détection et correction d'un bug d'alignement d'index pandas lors de l'export final, déduplication de lignes sources dupliquées par double contact CRM. Ces vérifications de bout en bout, au-delà du seul entraînement du modèle, ont été déterminantes pour la fiabilité du livrable.",
+    "en": "Detecting a data-collection regime change masking a population bias, identifying and excluding a month with a structurally immature label, catching and fixing a pandas index-alignment bug in the final export, and de-duplicating source rows caused by duplicate CRM contacts. These end-to-end checks — beyond model training itself — were decisive for the reliability of the deliverable."
+  },
+  "timeline": "2026",
+  "links": {},
+  "featured": true
+}

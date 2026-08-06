@@ -1,0 +1,61 @@
+{
+  "slug": "framework-migration-agents-hexagonal",
+  "title": {
+    "fr": "Framework de Migration d'Agents IA — Architecture Hexagonale",
+    "en": "AI Agent Migration Framework — Hexagonal Architecture"
+  },
+  "category": "data-engineering-api",
+  "coverImage": "/images/projects/framework-migration-hexagonal/cover.svg",
+  "gallery": [],
+  "summary": {
+    "fr": "Cadre réutilisable en architecture hexagonale pour déployer des agents IA en production indépendamment du fournisseur de LLM ou de l'orchestrateur.",
+    "en": "Reusable hexagonal-architecture framework for deploying AI agents to production independently of the LLM provider or orchestrator."
+  },
+  "context": {
+    "fr": "Besoin d'un cadre réutilisable pour migrer et déployer des agents IA en production, sans coupler la logique métier à un fournisseur de LLM ou à un orchestrateur particulier — pour pouvoir faire évoluer l'infrastructure sans réécrire la logique agentique.",
+    "en": "Need for a reusable framework to migrate and deploy AI agents to production, without coupling business logic to a specific LLM provider or orchestrator — so infrastructure can evolve without rewriting the agentic logic."
+  },
+  "approach": {
+    "fr": "Conception orientée architecture hexagonale (ports & adaptateurs) pour découpler la logique agentique de l'infrastructure : les ports définissent les contrats métier (raisonnement, récupération de contexte, exécution d'outils), et les adaptateurs branchent ces contrats sur des implémentations concrètes (fournisseur de LLM, orchestrateur, stockage).",
+    "en": "Hexagonal-architecture design (ports & adapters) to decouple agentic logic from infrastructure: ports define the business contracts (reasoning, context retrieval, tool execution), and adapters plug those contracts into concrete implementations (LLM provider, orchestrator, storage)."
+  },
+  "architecture": {
+    "fr": "Orchestration de la logique agentique via LangGraph, exposée à travers une API FastAPI. Les ports du domaine restent agnostiques du fournisseur de LLM ; les adaptateurs concrets (LangGraph, appels LLM, FastAPI) sont interchangeables sans modifier le cœur métier.",
+    "en": "Agentic logic orchestrated through LangGraph, exposed via a FastAPI API. Domain ports stay agnostic of the LLM provider; concrete adapters (LangGraph, LLM calls, FastAPI) are interchangeable without touching the business core."
+  },
+  "stack": ["Python", "LangGraph", "FastAPI", "Architecture hexagonale"],
+  "architectureDiagram": {
+    "fr": "graph TD\n  ORCH[\"Orchestration LangGraph\"] --> P1\n\n  subgraph PORTS[\"Ports du domaine — cœur stable\"]\n    P1[\"Raisonnement\"]\n    P2[\"Récupération de contexte\"]\n    P3[\"Exécution d'outils\"]\n  end\n\n  P1 --> LLM[\"Adaptateur LLM (interchangeable)\"]\n  P2 --> STORE[(\"Adaptateur stockage\")]\n  P3 --> API[\"Adaptateur FastAPI\"]",
+    "en": "graph TD\n  ORCH[\"LangGraph orchestration\"] --> P1\n\n  subgraph PORTS[\"Domain ports — stable core\"]\n    P1[\"Reasoning\"]\n    P2[\"Context retrieval\"]\n    P3[\"Tool execution\"]\n  end\n\n  P1 --> LLM[\"LLM adapter (interchangeable)\"]\n  P2 --> STORE[(\"Storage adapter\")]\n  P3 --> API[\"FastAPI adapter\"]"
+  },
+  "metrics": [
+    {
+      "label": "Ports métier définis",
+      "value": "3 (raisonnement, contexte, outils)",
+      "impact": {
+        "fr": "Trois contrats stables suffisent à couvrir le cycle de vie complet d'un agent, ce qui borne clairement ce qui doit rester stable face à un changement d'infrastructure.",
+        "en": "Three stable contracts are enough to cover an agent's full lifecycle, clearly bounding what must stay stable when infrastructure changes."
+      }
+    },
+    {
+      "label": "Effort de migration réduit",
+      "value": "60%",
+      "estimated": true,
+      "impact": {
+        "fr": "Estimation par rapport à une implémentation fortement couplée à un fournisseur : changer de LLM ou d'orchestrateur revient à ré-implémenter un adaptateur plutôt qu'à réécrire la logique agentique.",
+        "en": "Estimated relative to a tightly-coupled implementation: switching LLM provider or orchestrator means re-implementing one adapter instead of rewriting the agentic logic."
+      }
+    }
+  ],
+  "results": {
+    "fr": "Un cadre réutilisable, pensé comme un exercice d'architecture logicielle plutôt qu'un simple wrapper d'API REST : la valeur du projet est dans la séparation claire entre logique agentique et infrastructure.",
+    "en": "A reusable framework, designed as a software-architecture exercise rather than a simple REST API wrapper: the project's value lies in the clean separation between agentic logic and infrastructure."
+  },
+  "challenges": {
+    "fr": "Définir des ports suffisamment génériques pour rester stables face à des changements de fournisseur de LLM ou d'orchestrateur, sans pour autant sur-abstraire au point de complexifier inutilement le code.",
+    "en": "Defining ports generic enough to stay stable across LLM provider or orchestrator changes, without over-abstracting to the point of needlessly complicating the code."
+  },
+  "timeline": "2026",
+  "links": {},
+  "featured": true
+}

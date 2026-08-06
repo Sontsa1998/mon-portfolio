@@ -1,0 +1,60 @@
+{
+  "slug": "o2s-churn-data-pipeline",
+  "title": {
+    "fr": "Pipeline de Données — Base d'Entraînement Churn O2S",
+    "en": "Data Pipeline — O2S Churn Training Dataset"
+  },
+  "category": "data-engineering-api",
+  "coverImage": "/images/projects/o2s-churn-data-pipeline/cover.svg",
+  "gallery": [],
+  "summary": {
+    "fr": "Consolidation de 16 sources de données hétérogènes en un dataset d'entraînement unique pour le futur modèle de Deep Learning de prédiction du churn du produit O2S.",
+    "en": "Consolidating 16 heterogeneous data sources into a single training dataset for the upcoming Deep Learning churn model for the O2S product."
+  },
+  "context": {
+    "fr": "Après le modèle de Deep Learning développé pour le produit Patrimoine (BIG), Harvest a engagé la même démarche pour O2S. Mais contrairement à BIG, les données d'usage O2S sont dispersées sur 16 sources distinctes, avec des granularités différentes (contact, société, contrat) et des schémas hétérogènes — aucun modèle ne peut être entraîné sérieusement sans un socle de données fiable et consolidé.",
+    "en": "Following the Deep Learning model built for the Patrimoine product (BIG), Harvest launched the same effort for O2S. But unlike BIG, O2S usage data is spread across 16 distinct sources with different granularities (contact, company, contract) and heterogeneous schemas — no model can be seriously trained without a reliable, consolidated data foundation first."
+  },
+  "approach": {
+    "fr": "Cartographie exhaustive des 16 fichiers et systèmes sources, identification des clés de jointure et des niveaux de granularité (contact vs société), puis construction des jointures complexes nécessaires pour ramener l'ensemble à un référentiel cohérent. Agrégations par contact et par société pour produire des features exploitables, avec des contrôles de qualité à chaque étape pour détecter les incohérences avant qu'elles ne se propagent au futur modèle.",
+    "en": "Exhaustive mapping of the 16 source files and systems, identification of join keys and granularity levels (contact vs. company), then construction of the complex joins needed to bring everything into a coherent reference model. Aggregations by contact and by company to produce usable features, with quality checks at each step to catch inconsistencies before they propagate into the future model."
+  },
+  "architecture": {
+    "fr": "Pipeline d'ingestion et de transformation en Python : extraction des 16 sources, nettoyage et normalisation, jointures multi-niveaux, agrégation par entité (contact/société), puis export du dataset consolidé vers un format exploitable pour l'entraînement d'un modèle de Deep Learning. Orchestration et automatisation des flux via Airflow, cohérente avec le reste des pipelines de l'équipe Data.",
+    "en": "Python ingestion and transformation pipeline: extraction from the 16 sources, cleaning and normalization, multi-level joins, aggregation by entity (contact/company), then export of the consolidated dataset into a format usable for training a Deep Learning model. Flow orchestration and automation via Airflow, consistent with the rest of the Data team's pipelines."
+  },
+  "stack": ["Python", "SQL", "Airflow", "pandas", "GitLab"],
+  "architectureDiagram": {
+    "fr": "graph TD\n  subgraph SOURCES[\"16 sources hétérogènes\"]\n    S1[\"Contact\"]\n    S2[\"Société\"]\n    S3[\"Contrat\"]\n  end\n  CLEAN[\"Nettoyage & normalisation\"]\n  JOIN[\"Jointures multi-niveaux\"]\n  AGG[\"Agrégation par entité\"]\n  OUT[(\"Dataset consolidé\")]\n\n  S1 --> CLEAN\n  S2 --> CLEAN\n  S3 --> CLEAN\n  CLEAN --> JOIN\n  JOIN --> AGG\n  AGG -->|\"Airflow\"| OUT",
+    "en": "graph TD\n  subgraph SOURCES[\"16 heterogeneous sources\"]\n    S1[\"Contact\"]\n    S2[\"Company\"]\n    S3[\"Contract\"]\n  end\n  CLEAN[\"Cleaning & normalization\"]\n  JOIN[\"Multi-level joins\"]\n  AGG[\"Aggregation by entity\"]\n  OUT[(\"Consolidated dataset\")]\n\n  S1 --> CLEAN\n  S2 --> CLEAN\n  S3 --> CLEAN\n  CLEAN --> JOIN\n  JOIN --> AGG\n  AGG -->|\"Airflow\"| OUT"
+  },
+  "metrics": [
+    {
+      "label": "Sources de données consolidées",
+      "value": "16",
+      "impact": {
+        "fr": "Sans ce socle, aucun modèle ne peut être entraîné sérieusement : chaque source dispersée est une occasion de biais ou d'incohérence non détectée.",
+        "en": "Without this foundation, no model can be seriously trained: every scattered source is a chance for undetected bias or inconsistency."
+      }
+    },
+    {
+      "label": "Niveaux de granularité réconciliés",
+      "value": "3 (contact, société, contrat)",
+      "impact": {
+        "fr": "Réconcilier ces trois niveaux sans perte d'information ni doublon est ce qui rend le dataset exploitable pour du machine learning plutôt qu'un simple entrepôt de données brutes.",
+        "en": "Reconciling these three levels without losing information or introducing duplicates is what makes the dataset usable for machine learning rather than just a raw data warehouse."
+      }
+    }
+  ],
+  "results": {
+    "fr": "Un socle de données fiable et documenté, prêt à servir de base d'entraînement pour le futur modèle de Deep Learning de prédiction du churn O2S — prolongeant sur ce produit la démarche déjà validée sur BIG.",
+    "en": "A reliable, documented data foundation ready to serve as the training base for the upcoming O2S churn Deep Learning model — extending to this product the approach already validated on BIG."
+  },
+  "challenges": {
+    "fr": "Réconcilier des niveaux de granularité différents (contact, société, contrat) sans perdre d'information ni introduire de doublons ; documenter des jointures complexes pour qu'elles restent maintenables par le reste de l'équipe ; garantir que le socle de données reste correct au fil des mises à jour des systèmes sources.",
+    "en": "Reconciling different granularity levels (contact, company, contract) without losing information or introducing duplicates; documenting complex joins so they stay maintainable by the rest of the team; ensuring the data foundation stays correct as source systems evolve."
+  },
+  "timeline": "2026 — en cours",
+  "links": {},
+  "featured": false
+}

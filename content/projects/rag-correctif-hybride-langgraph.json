@@ -1,0 +1,61 @@
+{
+  "slug": "rag-correctif-hybride-langgraph",
+  "title": {
+    "fr": "Agent RAG Correctif Hybride (LangGraph)",
+    "en": "Hybrid Corrective RAG Agent (LangGraph)"
+  },
+  "category": "rag-agents",
+  "coverImage": "/images/projects/rag-correctif-hybride/cover.svg",
+  "gallery": [],
+  "summary": {
+    "fr": "Aller au-delà du RAG naïf « retrieve-then-generate » grâce à un graphe d'états qui note, reformule et relance la recherche documentaire lorsque c'est nécessaire.",
+    "en": "Going beyond naive \"retrieve-then-generate\" RAG with a state graph that grades, rewrites and retries document retrieval when needed."
+  },
+  "context": {
+    "fr": "Un RAG naïf (retrieve-then-generate) suffit rarement lorsque la qualité des documents récupérés est variable : il fallait un mécanisme capable de détecter une récupération insuffisante et de corriger la recherche avant de générer une réponse.",
+    "en": "A naive retrieve-then-generate RAG rarely holds up when the quality of retrieved documents is inconsistent: a mechanism was needed to detect insufficient retrieval and correct the search before generating an answer."
+  },
+  "approach": {
+    "fr": "Deux implémentations ont été comparées : une version rapide s'appuyant sur create_react_agent (agent prébuilt LangGraph), et une version RAG correctif explicite en StateGraph intégrant une notation de la pertinence des documents récupérés (« document grading »), une reformulation de requête en cas de récupération insuffisante (« query rewriting »), et un plafond de nouvelles tentatives pour éviter les boucles infinies.",
+    "en": "Two implementations were compared: a fast version built on create_react_agent (LangGraph's prebuilt agent), and an explicit corrective-RAG version built as a StateGraph, featuring retrieved-document relevance grading, query rewriting when retrieval is insufficient, and a retry cap to prevent infinite loops."
+  },
+  "architecture": {
+    "fr": "Graphe d'états LangGraph : retrieve → grade → [generate | rewrite → retrieve] → generate. Le nœud de notation décide si les documents récupérés sont suffisamment pertinents ; sinon, la requête est reformulée et la recherche relancée, dans la limite d'un nombre de tentatives plafonné.",
+    "en": "LangGraph state graph: retrieve → grade → [generate | rewrite → retrieve] → generate. The grading node decides whether retrieved documents are relevant enough; if not, the query is rewritten and retrieval retried, capped at a maximum number of attempts."
+  },
+  "stack": ["Python", "LangGraph", "LangChain", "OpenAI API"],
+  "architectureDiagram": {
+    "fr": "graph TD\n  Q[\"Requête utilisateur\"] --> RET[\"Retrieve\"]\n  RET --> GRADE[\"Grade — pertinence des documents\"]\n  GRADE -->|\"Suffisant\"| GEN[\"Generate\"]\n  GRADE -->|\"Insuffisant\"| REWRITE[\"Rewrite — reformulation de requête\"]\n  REWRITE -->|\"Nouvelle tentative (max 3)\"| RET\n  GEN -->|\"Réponse finale\"| Q",
+    "en": "graph TD\n  Q[\"User query\"] --> RET[\"Retrieve\"]\n  RET --> GRADE[\"Grade — document relevance\"]\n  GRADE -->|\"Sufficient\"| GEN[\"Generate\"]\n  GRADE -->|\"Insufficient\"| REWRITE[\"Rewrite — query rewriting\"]\n  REWRITE -->|\"Retry (max 3)\"| RET\n  GEN -->|\"Final answer\"| Q"
+  },
+  "metrics": [
+    {
+      "label": "Architectures comparées",
+      "value": "2",
+      "impact": {
+        "fr": "Comparer un agent prébuilt à une architecture correctif explicite documente objectivement quand la complexité additionnelle du RAG correctif se justifie, plutôt que de l'adopter par défaut.",
+        "en": "Comparing a prebuilt agent to an explicit corrective architecture objectively documents when the added complexity of corrective RAG is worth it, rather than adopting it by default."
+      }
+    },
+    {
+      "label": "Tentatives de correction max",
+      "value": "3",
+      "estimated": true,
+      "impact": {
+        "fr": "Un plafond assez généreux pour laisser une vraie chance à la reformulation de requête, sans risquer de boucle infinie ni de latence excessive côté utilisateur.",
+        "en": "A cap generous enough to give query rewriting a real chance to succeed, without risking an infinite loop or excessive latency for the end user."
+      }
+    }
+  ],
+  "results": {
+    "fr": "Comparaison documentée entre une architecture agent prébuilt et une architecture RAG correctif explicite sur le même corpus, avec un schéma clair du graphe d'états comme livrable pédagogique principal.",
+    "en": "Documented comparison between a prebuilt-agent architecture and an explicit corrective-RAG architecture on the same corpus, with a clear state-graph diagram as the main educational deliverable."
+  },
+  "challenges": {
+    "fr": "Concevoir un plafond de nouvelles tentatives suffisamment permissif pour laisser une chance à la reformulation de requête, sans risquer de boucle infinie ni de latence excessive côté utilisateur.",
+    "en": "Designing a retry cap generous enough to give query rewriting a real chance to succeed, without risking an infinite loop or excessive latency for the end user."
+  },
+  "timeline": "2026",
+  "links": {},
+  "featured": true
+}

@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "siteName": "Christian Sontsa Kiteu",
+    "homeTitle": "Christian Sontsa Kiteu — AI Engineer / ML Engineer / Data Engineer",
+    "homeDescription": "Portfolio of Christian Sontsa Kiteu, AI engineer based in Paris — deep learning, RAG, AI agents and data engineering for production-ready systems.",
+    "projectsTitle": "Projects — Christian Sontsa Kiteu",
+    "projectsDescription": "Explore Christian Sontsa Kiteu's AI, ML and data engineering projects: RAG, agents, deep learning, automation.",
+    "aboutTitle": "About — Christian Sontsa Kiteu",
+    "aboutDescription": "Background, skills and education of Christian Sontsa Kiteu, AI Engineer at Groupe Harvest.",
+    "contactTitle": "Contact — Christian Sontsa Kiteu",
+    "contactDescription": "Get in touch with Christian Sontsa Kiteu for a Data Engineer or AI Engineer role."
+  },
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact",
+    "downloadCv": "Download my CV",
+    "toggleTheme": "Toggle theme",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "backToTop": "Back to top"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Christian",
+    "roles": ["AI Engineer", "Data Engineer"],
+    "tagline": "AI engineer at the crossroads of data and machine learning — I build rigorous, measured, production-ready systems, from deep learning pipelines to autonomous agents.",
+    "ctaProjects": "See my projects",
+    "ctaContact": "Get in touch",
+    "scrollHint": "Scroll"
+  },
+  "stats": {
+    "projects": "Projects delivered",
+    "prAuc": "Better than chance (churn PR-AUC)",
+    "features": "Engineered features (churn)",
+    "categories": "Areas of expertise"
+  },
+  "about": {
+    "kicker": "About",
+    "title": "A profile at the crossroads of data and AI",
+    "intro": "Currently a Data Engineer at Groupe Harvest in Paris, on a work-study program as part of an RNCP Bac+5 \"Digital Innovation Manager\" degree. My work spans data engineering, machine learning engineering, data analytics and agentic AI.",
+    "intlTitle": "International experience",
+    "intlText": "Professional experience in the United Arab Emirates that shaped an ability to thrive in multicultural, high-expectation environments.",
+    "searchTitle": "Currently looking for",
+    "searchText": "I'm looking for a Data Engineer or AI Engineer role, available from October 2026.",
+    "readMore": "Learn more",
+    "downloadCv": "Download my CV (PDF)",
+    "languagesTitle": "Languages",
+    "french": "French",
+    "english": "English",
+    "nativeLevel": "Native",
+    "c1Level": "C1",
+    "timelineTitle": "Journey",
+    "timeline": [
+      {
+        "period": "2020 – 2024",
+        "title": "Data Analyst & BI (Permanent) — Honeywell, United Arab Emirates",
+        "description": "Centralized multi-source data (relational databases, APIs, SAP) and built SQL/Python/VBA pipelines to deliver reliable reporting in an international environment."
+      },
+      {
+        "period": "2025",
+        "title": "BI & Data Visualization Intern — Harvett Conseils Risque et Finances",
+        "description": "Integrated and prepared multi-source data with Alteryx and Python to power Power BI dashboards and deliver reliable KPIs to business teams."
+      },
+      {
+        "period": "Since 2025",
+        "title": "Data Engineer & AI Engineer (Work-study) — Groupe Harvest",
+        "description": "Designed and productionized a hybrid RAG agent (LangGraph, Qdrant, LLM-as-judge) and an XGBoost churn prediction model, as part of the RNCP Bac+5 \"Digital Innovation Manager\" degree."
+      },
+      {
+        "period": "From October 2026",
+        "title": "Next step",
+        "description": "Available for a Data Engineer or AI Engineer role."
+      }
+    ]
+  },
+  "skills": {
+    "kicker": "Skills",
+    "title": "A toolkit built for production",
+    "categories": {
+      "genai": "Generative AI & Agents",
+      "ml": "Machine Learning & Deep Learning",
+      "data": "Data Engineering",
+      "dev": "Development",
+      "tools": "Tools"
+    }
+  },
+  "projects": {
+    "kicker": "Projects",
+    "titleHome": "Featured projects",
+    "titleList": "All projects",
+    "subtitle": "A selection of AI and data systems, from prototype to production.",
+    "viewAll": "View all projects",
+    "viewProject": "View project",
+    "filterCategory": "Category",
+    "filterTech": "Technology",
+    "filterAll": "All",
+    "resetFilters": "Reset",
+    "noResults": "No project matches these filters.",
+    "placeholderBadge": "Coming soon",
+    "categories": {
+      "rag-agents": "RAG & AI Agents",
+      "ml-deep-learning": "Machine Learning & Deep Learning",
+      "automation-rpa": "Automation & RPA",
+      "data-engineering-api": "Data Engineering & API",
+      "voice-audio": "Voice & Audio"
+    }
+  },
+  "projectDetail": {
+    "back": "Back to projects",
+    "tabs": {
+      "overview": "Overview",
+      "approach": "Approach & Architecture",
+      "metrics": "Metrics & Results",
+      "challenges": "Technical challenges",
+      "gallery": "Gallery"
+    },
+    "context": "Context",
+    "approach": "Approach",
+    "architecture": "Architecture",
+    "architectureDiagramTitle": "How it works",
+    "stack": "Tech stack",
+    "metrics": "Key metrics",
+    "results": "Results & impact",
+    "estimated": "Estimate",
+    "challenges": "Technical challenges",
+    "timeline": "Duration",
+    "links": "Links",
+    "github": "Source code",
+    "demo": "Demo",
+    "caseStudy": "Case study (PDF)",
+    "placeholderNotice": "This project page is a placeholder awaiting real content. No metrics have been invented.",
+    "otherProjects": "Other projects"
+  },
+  "contact": {
+    "kicker": "Contact",
+    "title": "Let's talk about your next project",
+    "subtitle": "Available for a Data Engineer or AI Engineer role from October 2026. Feel free to reach out.",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "Subject of your message",
+      "message": "Message",
+      "messagePlaceholder": "Your message...",
+      "submit": "Send message",
+      "submitting": "Sending...",
+      "success": "Thanks! Your message has been sent, I'll get back to you shortly.",
+      "error": "Something went wrong. Please try again or email me directly.",
+      "errors": {
+        "name": "Please enter your name (2 characters minimum).",
+        "email": "Please enter a valid email address.",
+        "subject": "Please enter a subject (3 characters minimum).",
+        "message": "Your message must be at least 10 characters long."
+      }
+    },
+    "directTitle": "Other ways to reach me",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "location": "Based in Paris, France"
+  },
+  "common": {
+    "loading": "Loading...",
+    "readingTime": "min read"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "slug": "etl-bot-rpa-uipath",
+  "title": {
+    "fr": "ETL-Bot — Automatisation RPA (UiPath)",
+    "en": "ETL-Bot — RPA Automation (UiPath)"
+  },
+  "category": "automation-rpa",
+  "coverImage": "/images/projects/etl-bot-rpa/cover.svg",
+  "gallery": [],
+  "summary": {
+    "fr": "Automatisation d'un flux de collecte d'offres d'emploi (LinkedIn/Indeed) avec UiPath, dans le cadre d'un projet académique en binôme.",
+    "en": "Automation of a job-listing collection workflow (LinkedIn/Indeed) with UiPath, built as a pair-programmed academic project."
+  },
+  "context": {
+    "fr": "Projet académique (MBA ESG) réalisé en binôme, visant à automatiser la collecte de données d'offres d'emploi sur LinkedIn et Indeed pour constituer un jeu de données exploitable.",
+    "en": "Academic project (MBA ESG) built in pairs, aiming to automate the collection of job-listing data from LinkedIn and Indeed to build a usable dataset."
+  },
+  "approach": {
+    "fr": "Construction d'un workflow UiPath utilisant les activités Build Data Table et Write Range Workbook, avec injection de scripts JavaScript pour l'extraction fine des données sur les pages web, débogage XAML et gestion de versions de packages UiPath.",
+    "en": "Built a UiPath workflow using the Build Data Table and Write Range Workbook activities, with injected JavaScript scripts for fine-grained data extraction from web pages, XAML debugging, and UiPath package version management."
+  },
+  "architecture": {
+    "fr": "Workflow RPA UiPath : navigation et extraction sur les pages d'offres d'emploi via scripts JS injectés, structuration des données en table via Build Data Table, puis export vers un classeur Excel via Write Range Workbook.",
+    "en": "UiPath RPA workflow: navigation and extraction on job-listing pages via injected JS scripts, data structured into a table with Build Data Table, then exported to an Excel workbook with Write Range Workbook."
+  },
+  "stack": ["UiPath", "JavaScript", "Excel"],
+  "architectureDiagram": {
+    "fr": "graph TD\n  subgraph SOURCES[\"Sources\"]\n    LI[\"LinkedIn\"]\n    IND[\"Indeed\"]\n  end\n  BOT[\"Bot UiPath + scripts JS injectés\"]\n  TABLE[\"Build Data Table\"]\n  EXCEL[(\"Export Excel — Write Range Workbook\")]\n\n  LI --> BOT\n  IND --> BOT\n  BOT --> TABLE\n  TABLE --> EXCEL",
+    "en": "graph TD\n  subgraph SOURCES[\"Sources\"]\n    LI[\"LinkedIn\"]\n    IND[\"Indeed\"]\n  end\n  BOT[\"UiPath bot + injected JS scripts\"]\n  TABLE[\"Build Data Table\"]\n  EXCEL[(\"Excel export — Write Range Workbook\")]\n\n  LI --> BOT\n  IND --> BOT\n  BOT --> TABLE\n  TABLE --> EXCEL"
+  },
+  "metrics": [
+    {
+      "label": "Sources automatisées",
+      "value": "2 (LinkedIn, Indeed)",
+      "impact": {
+        "fr": "Deux plateformes couvertes par le même workflow, sans intervention manuelle une fois lancé.",
+        "en": "Two platforms covered by the same workflow, with no manual intervention once launched."
+      }
+    },
+    {
+      "label": "Temps de collecte gagné",
+      "value": "80%",
+      "estimated": true,
+      "impact": {
+        "fr": "Estimation par rapport à une collecte manuelle (copier-coller page par page) ; le projet n'a pas fait l'objet d'un chronométrage formalisé, un bot non supervisé restant néanmoins nettement plus rapide qu'une collecte humaine.",
+        "en": "Estimated relative to manual collection (copy-pasting page by page); the project wasn't formally timed, but an unattended bot is inherently far faster than human collection."
+      }
+    }
+  ],
+  "results": {
+    "fr": "Support de présentation dédié (11 slides) formalisant la démarche et les résultats pour un jury académique.",
+    "en": "Dedicated presentation deck (11 slides) formalizing the approach and results for an academic panel."
+  },
+  "challenges": {
+    "fr": "[À COMPLÉTER : nom du binôme à créditer si souhaité, volumétrie de données traitée, gain de temps estimé.]",
+    "en": "[TO COMPLETE: teammate credit if desired, data volume processed, estimated time savings.]"
+  },
+  "timeline": "2025",
+  "links": {},
+  "featured": false
+}

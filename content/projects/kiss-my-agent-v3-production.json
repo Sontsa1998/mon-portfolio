@@ -1,0 +1,84 @@
+{
+  "slug": "kiss-my-agent-v3-production",
+  "title": {
+    "fr": "Kiss My Agent V3 — Assistant IA Documentaire O2S en Production",
+    "en": "Kiss My Agent V3 — O2S Documentation AI Assistant in Production"
+  },
+  "category": "rag-agents",
+  "coverImage": "/images/projects/kiss-my-agent-v3/cover.svg",
+  "gallery": [],
+  "summary": {
+    "fr": "Version production-grade de l'assistant documentaire O2S : RAG hybride (vectoriel + lexical + reranking), architecture hexagonale et évaluation continue mesurée sur 125 questions de test.",
+    "en": "Production-grade version of the O2S documentation assistant: hybrid RAG (vector + lexical + reranking), hexagonal architecture and continuous evaluation measured on 125 test questions."
+  },
+  "context": {
+    "fr": "Un premier assistant documentaire O2S avait validé le principe d'un agent conversationnel sur la documentation produit. L'étape suivante était d'en faire un système de production-grade : testable, évolutif, et surtout mesurable — avec une confiance réelle dans le taux de bonnes réponses et un taux d'hallucination sous contrôle, dans un secteur réglementé (finance patrimoniale) où une réponse fausse a un coût.",
+    "en": "An earlier O2S documentation assistant had validated the concept of a conversational agent over product documentation. The next step was turning it into a production-grade system: testable, evolvable, and above all measurable — with real confidence in the answer accuracy rate and a controlled hallucination rate, in a regulated sector (wealth management) where a wrong answer has a real cost."
+  },
+  "approach": {
+    "fr": "Architecture hexagonale (ports & adapters), testable et découplée de l'infrastructure. RAG hybride combinant Contextual Retrieval (Anthropic), recherche vectorielle (Qdrant) et recherche lexicale (BM25), avec reranking LLM des résultats avant génération. Mémoire conversationnelle gérée par threads via LangGraph MemorySaver, pour des échanges multi-tours cohérents. Mise en place d'un framework d'évaluation automatisée sur 125 questions de test avec LLM-as-judge, sur des métriques type RAGAS (fidélité, pertinence, exhaustivité).",
+    "en": "Hexagonal architecture (ports & adapters), testable and decoupled from infrastructure. Hybrid RAG combining Contextual Retrieval (Anthropic), vector search (Qdrant) and lexical search (BM25), with LLM reranking of results before generation. Conversational memory managed per thread via LangGraph MemorySaver, for coherent multi-turn exchanges. Built an automated evaluation framework over 125 test questions with an LLM-as-judge, on RAGAS-style metrics (faithfulness, relevancy, completeness)."
+  },
+  "architecture": {
+    "fr": "Ingestion et chunking de la documentation → indexation vectorielle (Qdrant) et indexation lexicale (BM25) en parallèle → recherche hybride au moment de la requête → reranking LLM des passages → génération augmentée avec citations, orchestrée via LangGraph. Le tout est exposé via une API FastAPI, consommée par une interface Next.js, avec une observabilité de bout en bout via Langfuse (latence, coûts, dérive de qualité).",
+    "en": "Documentation ingestion and chunking → parallel vector indexing (Qdrant) and lexical indexing (BM25) → hybrid search at query time → LLM reranking of passages → augmented generation with citations, orchestrated via LangGraph. Exposed through a FastAPI API, consumed by a Next.js interface, with end-to-end observability via Langfuse (latency, cost, quality drift)."
+  },
+  "stack": ["Python", "FastAPI", "LangGraph", "Qdrant", "BM25", "OpenAI", "Cohere", "Next.js", "LangChain", "Langfuse"],
+  "architectureDiagram": {
+    "fr": "graph TD\n  UI[\"Interface Next.js\"]\n  OBS[\"Observabilité Langfuse\"]\n\n  subgraph BACKEND[\"BACKEND — API FastAPI\"]\n    ORCH[\"Orchestration LangGraph\"]\n    CHUNK[\"Ingestion & chunking\"]\n    subgraph MOTEUR[\"MOTEUR RAG HYBRIDE\"]\n      VEC[(\"Qdrant — vectoriel\")]\n      LEX[(\"BM25 — lexical\")]\n      FUSION[\"Fusion hybride\"]\n      RERANK[\"Reranking LLM\"]\n    end\n    GEN[\"Génération + citations\"]\n  end\n\n  UI -->|\"Question\"| ORCH\n  ORCH --> CHUNK\n  CHUNK --> VEC\n  CHUNK --> LEX\n  VEC --> FUSION\n  LEX --> FUSION\n  FUSION --> RERANK\n  RERANK --> GEN\n  GEN -->|\"Réponse\"| UI\n  ORCH -.->|\"latence / coûts\"| OBS",
+    "en": "graph TD\n  UI[\"Next.js UI\"]\n  OBS[\"Langfuse observability\"]\n\n  subgraph BACKEND[\"BACKEND — FastAPI\"]\n    ORCH[\"LangGraph orchestration\"]\n    CHUNK[\"Ingestion & chunking\"]\n    subgraph MOTEUR[\"HYBRID RAG ENGINE\"]\n      VEC[(\"Qdrant — vector\")]\n      LEX[(\"BM25 — lexical\")]\n      FUSION[\"Hybrid search\"]\n      RERANK[\"LLM reranking\"]\n    end\n    GEN[\"Augmented generation + citations\"]\n  end\n\n  UI -->|\"Question\"| ORCH\n  ORCH --> CHUNK\n  CHUNK --> VEC\n  CHUNK --> LEX\n  VEC --> FUSION\n  LEX --> FUSION\n  FUSION --> RERANK\n  RERANK --> GEN\n  GEN -->|\"Answer\"| UI\n  ORCH -.->|\"latency / cost\"| OBS"
+  },
+  "metrics": [
+    {
+      "label": "Faithfulness / Relevancy",
+      "value": "93%",
+      "impact": {
+        "fr": "Chaque réponse peut être vérifiée par l'utilisateur plutôt que prise sur parole — un impératif dans un secteur réglementé où une réponse fausse a un coût réel.",
+        "en": "Every answer can be checked by the user rather than taken on faith — a must in a regulated sector where a wrong answer has a real cost."
+      }
+    },
+    {
+      "label": "Completeness",
+      "value": "88%",
+      "impact": {
+        "fr": "Réduit le nombre d'allers-retours vers le support humain : la majorité des questions trouvent une réponse complète dès le premier échange.",
+        "en": "Cuts the number of escalations to human support: most questions get a complete answer on the first exchange."
+      }
+    },
+    {
+      "label": "Latence P95",
+      "value": "< 12s",
+      "impact": {
+        "fr": "Une réponse en moins de 12 secondes dans 95% des cas, compatible avec un usage en conditions réelles malgré le reranking et la recherche hybride.",
+        "en": "An answer in under 12 seconds 95% of the time — fast enough for real-world use despite the added reranking and hybrid-search steps."
+      }
+    },
+    {
+      "label": "Taux d'hallucination",
+      "value": "12%",
+      "impact": {
+        "fr": "Un taux mesuré et publiquement assumé plutôt que dissimulé : il sert de référence pour les itérations suivantes et guide les priorités de correction.",
+        "en": "A measured, openly reported rate rather than a hidden one: it acts as the baseline for future iterations and guides correction priorities."
+      }
+    },
+    {
+      "label": "Questions d'évaluation",
+      "value": "125",
+      "impact": {
+        "fr": "Un jeu de test assez large pour détecter de vraies régressions avant mise en production, plutôt que de valider le système sur une poignée d'exemples choisis à la main.",
+        "en": "A test set large enough to catch real regressions before shipping, rather than validating the system on a handful of hand-picked examples."
+      }
+    }
+  ],
+  "results": {
+    "fr": "Système en production au service des équipes qui exploitent la documentation O2S, avec une fiabilité mesurée en continu plutôt que supposée : le taux d'hallucination est chiffré et a été réduit après correction méthodologique, plutôt que simplement annoncé comme faible.",
+    "en": "System in production serving the teams that rely on O2S documentation, with reliability measured continuously rather than assumed: the hallucination rate is quantified and was reduced after a methodological fix, rather than simply claimed to be low."
+  },
+  "challenges": {
+    "fr": "Réduire le taux d'hallucination sans sacrifier la couverture des réponses ; construire un jeu de 125 questions de test suffisamment représentatif pour détecter de vraies régressions avant mise en production ; tenir un objectif de latence P95 sous 12 secondes malgré l'étape de reranking et la recherche hybride.",
+    "en": "Reducing the hallucination rate without sacrificing answer coverage; building a set of 125 test questions representative enough to catch real regressions before shipping; keeping P95 latency under 12 seconds despite the reranking step and hybrid search."
+  },
+  "timeline": "Depuis 2025",
+  "links": {},
+  "featured": false
+}

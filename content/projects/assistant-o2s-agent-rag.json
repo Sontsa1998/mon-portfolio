@@ -1,0 +1,69 @@
+{
+  "slug": "assistant-o2s-agent-rag",
+  "title": {
+    "fr": "Assistant O2S V3 — Agent RAG agentique (PydanticAI)",
+    "en": "O2S Assistant V3 — Agentic RAG Agent (PydanticAI)"
+  },
+  "category": "rag-agents",
+  "coverImage": "/images/projects/assistant-o2s/cover.svg",
+  "gallery": [],
+  "summary": {
+    "fr": "Assistant agentique interrogeant une documentation technique interne en Markdown, conçu pour éliminer les hallucinations grâce à des citations vérifiables.",
+    "en": "Agentic assistant querying internal Markdown technical documentation, designed to eliminate hallucinations through verifiable citations."
+  },
+  "context": {
+    "fr": "Besoin d'un assistant capable de rechercher et répondre à partir d'une documentation technique interne, avec une exigence forte de fiabilité : pas d'hallucination, et des réponses systématiquement traçables jusqu'à la source documentaire.",
+    "en": "Need for an assistant able to search and answer from internal technical documentation, with a strong reliability requirement: no hallucinations, and answers systematically traceable back to the source documentation."
+  },
+  "approach": {
+    "fr": "Architecture agentique construite avec PydanticAI, recherche textuelle rapide via ripgrep couplée à des modèles OpenAI, pipeline de réponse en streaming. La documentation source (neuf fichiers) a été restructurée pour être optimisée pour le RAG : harmonisation du frontmatter YAML, hiérarchie de titres cohérente, séparateurs de chunks explicites, avec des recommandations de chunking validées (chunk_size=512, chunk_overlap=100).",
+    "en": "Agentic architecture built with PydanticAI, fast full-text search via ripgrep paired with OpenAI models, streaming response pipeline. The source documentation (nine files) was restructured to be RAG-optimized: harmonized YAML frontmatter, consistent heading hierarchy, explicit chunk separators, with validated chunking recommendations (chunk_size=512, chunk_overlap=100)."
+  },
+  "architecture": {
+    "fr": "Agent PydanticAI orchestrant un outil de recherche ripgrep sur la documentation Markdown restructurée, puis un modèle OpenAI pour la génération de réponse en streaming avec citations des sources retrouvées.",
+    "en": "PydanticAI agent orchestrating a ripgrep search tool over the restructured Markdown documentation, then an OpenAI model for streaming answer generation with citations of the retrieved sources."
+  },
+  "stack": ["Python", "PydanticAI", "ripgrep", "OpenAI API", "uv"],
+  "architectureDiagram": {
+    "fr": "graph TD\n  Q[\"Question utilisateur\"]\n  DOCS[(\"Documentation Markdown — 9 fichiers\")]\n\n  subgraph AGENT[\"Agent PydanticAI\"]\n    ORCH[\"Orchestrateur\"]\n    SEARCH[\"Recherche ripgrep\"]\n    GEN[\"Génération OpenAI (streaming)\"]\n  end\n\n  Q --> ORCH\n  ORCH --> SEARCH\n  SEARCH --> DOCS\n  DOCS --> SEARCH\n  SEARCH --> GEN\n  GEN -->|\"Réponse + citations\"| Q",
+    "en": "graph TD\n  Q[\"User question\"]\n  DOCS[(\"Markdown documentation — 9 files\")]\n\n  subgraph AGENT[\"PydanticAI agent\"]\n    ORCH[\"Orchestrator\"]\n    SEARCH[\"ripgrep search\"]\n    GEN[\"OpenAI generation (streaming)\"]\n  end\n\n  Q --> ORCH\n  ORCH --> SEARCH\n  SEARCH --> DOCS\n  DOCS --> SEARCH\n  SEARCH --> GEN\n  GEN -->|\"Answer + citations\"| Q"
+  },
+  "metrics": [
+    {
+      "label": "Axes d'évaluation",
+      "value": "3 (couverture, fidélité, conformité)",
+      "impact": {
+        "fr": "Une évaluation multi-critères plutôt qu'un simple \"ça marche\" : elle distingue précisément une réponse incomplète d'une réponse infidèle ou d'un mauvais usage d'outil.",
+        "en": "A multi-criteria evaluation rather than a simple pass/fail: it precisely distinguishes an incomplete answer from an unfaithful one or a misused tool call."
+      }
+    },
+    {
+      "label": "Fichiers documentaires optimisés RAG",
+      "value": "9",
+      "impact": {
+        "fr": "Une documentation restructurée spécifiquement pour la recherche automatisée, condition préalable à des réponses fiables plutôt qu'une simple indexation brute.",
+        "en": "Documentation restructured specifically for automated search — a precondition for reliable answers rather than naive raw indexing."
+      }
+    },
+    {
+      "label": "Temps de recherche documentaire économisé",
+      "value": "70%",
+      "estimated": true,
+      "impact": {
+        "fr": "Estimation basée sur le temps de recherche manuelle habituellement nécessaire pour retrouver une information précise dans une documentation technique multi-fichiers.",
+        "en": "Estimated from the typical manual search time needed to find a precise piece of information in multi-file technical documentation."
+      }
+    }
+  ],
+  "results": {
+    "fr": "Mise en place d'un framework d'évaluation dédié mesurant trois axes : la couverture de mots-clés, la fidélité des citations (« citation faithfulness ») et la conformité des appels d'outils.",
+    "en": "Built a dedicated evaluation framework measuring three axes: keyword coverage, citation faithfulness, and tool-call compliance."
+  },
+  "challenges": {
+    "fr": "Résolution de bugs de blocage asyncio et de conflits de hardlinks OneDrive/uv en environnement Windows — des défis d'ingénierie qui vont au-delà du simple prototypage et qui ont demandé une compréhension fine de l'environnement d'exécution.",
+    "en": "Resolving asyncio deadlocks and OneDrive/uv hardlink conflicts on Windows — engineering challenges that go beyond prototyping and required a close understanding of the runtime environment."
+  },
+  "timeline": "2026",
+  "links": {},
+  "featured": true
+}

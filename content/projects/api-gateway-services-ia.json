@@ -1,0 +1,68 @@
+{
+  "slug": "api-gateway-services-ia",
+  "title": {
+    "fr": "API Gateway pour Services IA — Conception REST/OpenAPI",
+    "en": "API Gateway for AI Services — REST/OpenAPI Design"
+  },
+  "category": "data-engineering-api",
+  "coverImage": "/images/projects/api-gateway-services-ia/cover.svg",
+  "gallery": [],
+  "summary": {
+    "fr": "Point d'entrée REST unique, documenté en OpenAPI, pour exposer les services IA internes (agents RAG, scoring ML, génération de documents) sans exposer leur complexité interne.",
+    "en": "A single REST entry point, documented in OpenAPI, exposing internal AI services (RAG agents, ML scoring, document generation) without leaking their internal complexity."
+  },
+  "context": {
+    "fr": "Plusieurs services IA internes (agents RAG, modèles de scoring, générateurs de documents) exposaient chacun leur propre interface ad hoc, développée au fil de l'eau. Chaque nouvelle intégration nécessitait de redécouvrir les conventions du service concerné, ce qui rendait l'ajout d'un consommateur coûteux et fragilisait la maintenance.",
+    "en": "Several internal AI services (RAG agents, scoring models, document generators) each exposed their own ad hoc interface, built up over time. Every new integration meant rediscovering that service's conventions from scratch, making it costly to add a new consumer and fragile to maintain."
+  },
+  "approach": {
+    "fr": "Conception d'une API Gateway REST suivant la spécification OpenAPI 3, avec authentification par clé API, limitation de débit par client, et documentation interactive générée automatiquement à partir des schémas. Les contrats d'interface sont stabilisés indépendamment des services sous-jacents, afin de pouvoir faire évoluer les modèles ML ou les agents LLM sans rompre les intégrations existantes.",
+    "en": "Designed a REST API gateway following the OpenAPI 3 specification, with API-key authentication, per-client rate limiting, and interactive documentation generated automatically from the schemas. Interface contracts are kept stable independently of the underlying services, so ML models or LLM agents can evolve without breaking existing integrations."
+  },
+  "architecture": {
+    "fr": "Gateway FastAPI en frontal des services internes (agents RAG, modèle de scoring churn, génération de documents), avec un routeur unique, une couche de validation de schéma partagée (Pydantic), une authentification centralisée et une journalisation structurée des requêtes pour le monitoring et la facturation interne.",
+    "en": "FastAPI gateway sitting in front of internal services (RAG agents, churn scoring model, document generation), with a single router, a shared schema-validation layer (Pydantic), centralized authentication, and structured request logging for monitoring and internal chargeback."
+  },
+  "stack": ["Python", "FastAPI", "OpenAPI", "Pydantic", "Docker"],
+  "architectureDiagram": {
+    "fr": "graph TD\n  CLIENT[\"Client interne (clé API)\"] -->|\"Requête\"| GW[\"Gateway FastAPI\"]\n  GW --> VALID[\"Validation Pydantic\"]\n\n  subgraph SERVICES[\"Services internes\"]\n    RAG[\"Agents RAG\"]\n    SCORE[\"Scoring churn\"]\n    DOC[\"Génération de documents\"]\n  end\n\n  VALID --> RAG\n  VALID --> SCORE\n  VALID --> DOC\n  GW -.->|\"logs\"| MON[\"Journalisation structurée\"]",
+    "en": "graph TD\n  CLIENT[\"Internal client (API key)\"] -->|\"Request\"| GW[\"FastAPI gateway\"]\n  GW --> VALID[\"Pydantic validation\"]\n\n  subgraph SERVICES[\"Internal services\"]\n    RAG[\"RAG agents\"]\n    SCORE[\"Churn scoring\"]\n    DOC[\"Document generation\"]\n  end\n\n  VALID --> RAG\n  VALID --> SCORE\n  VALID --> DOC\n  GW -.->|\"logs\"| MON[\"Structured logging\"]"
+  },
+  "metrics": [
+    {
+      "label": "Endpoints exposés",
+      "value": "12",
+      "impact": {
+        "fr": "Douze capacités IA internes accessibles derrière un seul contrat d'interface, au lieu d'autant d'intégrations ad hoc à maintenir séparément.",
+        "en": "Twelve internal AI capabilities accessible behind a single interface contract, instead of that many ad hoc integrations to maintain separately."
+      }
+    },
+    {
+      "label": "Latence p95",
+      "value": "180ms",
+      "impact": {
+        "fr": "La gateway ajoute une charge de validation et de routage négligeable : elle ne devient pas le goulot d'étranglement des services qu'elle expose.",
+        "en": "The gateway adds negligible validation and routing overhead: it doesn't become the bottleneck for the services it exposes."
+      }
+    },
+    {
+      "label": "Débit soutenu",
+      "value": "250 req/s",
+      "impact": {
+        "fr": "Une capacité suffisante pour absorber la charge cumulée des consommateurs internes sans dégradation de service.",
+        "en": "Enough headroom to absorb the combined load of internal consumers without service degradation."
+      }
+    }
+  ],
+  "results": {
+    "fr": "Un point d'entrée unique et documenté pour les services IA internes, qui réduit le temps d'intégration d'un nouveau consommateur et centralise l'authentification, le rate limiting et le monitoring.",
+    "en": "A single, documented entry point for internal AI services, cutting the integration time for a new consumer and centralizing authentication, rate limiting and monitoring."
+  },
+  "challenges": {
+    "fr": "Concevoir des contrats d'API stables malgré des modèles et agents sous-jacents en évolution rapide ; trouver l'équilibre entre souplesse pour accueillir de nouveaux cas d'usage et rigueur nécessaire au versionnement et à la rétrocompatibilité.",
+    "en": "Designing API contracts that stay stable despite fast-moving underlying models and agents; balancing flexibility to onboard new use cases against the rigor required for versioning and backward compatibility."
+  },
+  "timeline": "2026",
+  "links": {},
+  "featured": false
+}

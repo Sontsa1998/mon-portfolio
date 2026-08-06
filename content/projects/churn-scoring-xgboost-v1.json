@@ -1,0 +1,61 @@
+{
+  "slug": "churn-scoring-xgboost-v1",
+  "title": {
+    "fr": "Pipeline de Scoring Churn (V1) — XGBoost, optimisation du rappel",
+    "en": "Churn Scoring Pipeline (V1) — XGBoost, Recall Optimization"
+  },
+  "category": "ml-deep-learning",
+  "coverImage": "/images/projects/churn-xgboost-v1/cover.svg",
+  "gallery": [],
+  "summary": {
+    "fr": "Première version du système de scoring churn (même produit que le modèle Deep Learning), à base de Gradient Boosting, optimisée directement sur le rappel métier.",
+    "en": "First version of the churn scoring system (same product as the Deep Learning model), built on Gradient Boosting and optimized directly for business recall."
+  },
+  "context": {
+    "fr": "Version antérieure du système de scoring churn développé pour le même produit de gestion de patrimoine que le projet « Modèle de Deep Learning — Prédiction du Churn ». Il s'agissait de la première itération, à base d'arbres de décision boostés, avant la migration vers une architecture réseau de neurones.",
+    "en": "Earlier version of the churn scoring system built for the same wealth-management product as the \"Deep Learning Churn Prediction\" project. This was the first iteration, based on boosted decision trees, before the migration to a neural network architecture."
+  },
+  "approach": {
+    "fr": "Feature engineering itératif, ré-échantillonnage SMOTE pour compenser le déséquilibre de classes, recherche d'hyperparamètres par RandomizedSearchCV optimisée directement sur le rappel (scoring=\"recall\"), évaluation par aire sous la courbe précision-rappel (aucpr), et sélection automatique de seuil pour atteindre un niveau de rappel configurable.",
+    "en": "Iterative feature engineering, SMOTE resampling to address class imbalance, hyperparameter search via RandomizedSearchCV optimized directly on recall (scoring=\"recall\"), evaluation through the area under the precision-recall curve (aucpr), and automatic threshold selection to hit a configurable recall target."
+  },
+  "architecture": {
+    "fr": "Modèle de Gradient Boosting (XGBoost) entraîné sur les features tabulaires du panel de contrats, avec ré-échantillonnage SMOTE en amont et recherche d'hyperparamètres randomisée en aval.",
+    "en": "Gradient Boosting model (XGBoost) trained on the tabular contract-panel features, with upstream SMOTE resampling and downstream randomized hyperparameter search."
+  },
+  "stack": ["Python", "XGBoost", "imbalanced-learn", "scikit-learn"],
+  "architectureDiagram": {
+    "fr": "graph TD\n  DATA[(\"Panel de contrats\")] --> SMOTE[\"Ré-échantillonnage SMOTE\"]\n  SMOTE --> XGB[\"XGBoost (Gradient Boosting)\"]\n  XGB --> SEARCH[\"RandomizedSearchCV (scoring = recall)\"]\n  SEARCH --> THRESH[\"Sélection de seuil\"]\n  THRESH -->|\"Restitution\"| CSM[\"Customer Success Managers\"]",
+    "en": "graph TD\n  DATA[(\"Contract panel\")] --> SMOTE[\"SMOTE resampling\"]\n  SMOTE --> XGB[\"XGBoost (Gradient Boosting)\"]\n  XGB --> SEARCH[\"RandomizedSearchCV (scoring = recall)\"]\n  SEARCH --> THRESH[\"Threshold selection\"]\n  THRESH -->|\"Handoff\"| CSM[\"Customer Success Managers\"]"
+  },
+  "metrics": [
+    {
+      "label": "Méthode de rééquilibrage",
+      "value": "SMOTE",
+      "impact": {
+        "fr": "Sans rééquilibrage, un modèle entraîné sur un panel où les résiliations sont rares tend à toutes les ignorer : SMOTE force le modèle à apprendre leurs signaux plutôt que le cas majoritaire par défaut.",
+        "en": "Without resampling, a model trained on a panel where churn is rare tends to ignore it entirely: SMOTE forces the model to learn its signals rather than defaulting to the majority case."
+      }
+    },
+    {
+      "label": "Rappel optimisé",
+      "value": "75%",
+      "estimated": true,
+      "impact": {
+        "fr": "Estimation cohérente avec un pipeline optimisé directement sur le rappel ; cette v1 a servi de référence de comparaison pour la version Deep Learning, qui a ensuite porté le rappel au seuil métier à 86%.",
+        "en": "Estimate consistent with a pipeline optimized directly for recall; this v1 served as the comparison baseline for the Deep Learning version, which later raised business-threshold recall to 86%."
+      }
+    }
+  ],
+  "results": {
+    "fr": "Résultats formalisés dans un support de restitution dédié pour les Customer Success Managers, qui a ensuite servi de référence de comparaison pour la version Deep Learning du même problème (arbres boostés vs. réseau de neurones).",
+    "en": "Results formalized in a dedicated presentation for Customer Success Managers, later used as the comparison baseline for the Deep Learning version of the same problem (boosted trees vs. neural network)."
+  },
+  "challenges": {
+    "fr": "Ce projet illustre surtout une démarche d'itération et de comparaison de modèles sur un même problème métier : passer d'un pipeline XGBoost optimisé sur le rappel à un MLP calibré sur un seuil métier, en conservant la même rigueur de validation.",
+    "en": "This project mainly illustrates an iterate-and-compare approach on the same business problem: moving from a recall-optimized XGBoost pipeline to a business-threshold-calibrated MLP, while keeping the same validation rigor."
+  },
+  "timeline": "2025 — 2026",
+  "links": {},
+  "featured": false
+}

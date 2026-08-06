@@ -1,0 +1,69 @@
+{
+  "slug": "assistant-o2s-text-to-speech",
+  "title": {
+    "fr": "Interface Vocale de l'Assistant O2S — Text-to-Speech",
+    "en": "O2S Assistant Voice Interface — Text-to-Speech"
+  },
+  "category": "voice-audio",
+  "coverImage": "/images/projects/assistant-o2s-text-to-speech/cover.svg",
+  "gallery": [],
+  "summary": {
+    "fr": "Restitution vocale des réponses de l'assistant O2S, en complément de l'entrée vocale, pour les cas d'usage mains libres et l'accessibilité.",
+    "en": "Voice playback of the O2S assistant's answers, complementing voice input, for hands-free use cases and accessibility."
+  },
+  "context": {
+    "fr": "Pour compléter l'entrée vocale de Kiss My Agent V3, il fallait permettre à l'assistant de restituer ses réponses à l'oral — notamment pour les cas d'usage mains libres et pour améliorer l'accessibilité de l'outil.",
+    "en": "To complement Kiss My Agent V3's voice input, the assistant needed to be able to read its answers aloud — particularly for hands-free use cases and to improve the tool's accessibility."
+  },
+  "approach": {
+    "fr": "Génération vocale des réponses via un moteur TTS neuronal, avec mise en cache audio des réponses fréquentes pour réduire la latence, et lecture progressive en streaming synchronisée avec la génération de texte du LLM plutôt qu'une attente de la réponse complète.",
+    "en": "Voice generation of answers via a neural TTS engine, with audio caching of frequent answers to reduce latency, and progressive streamed playback synchronized with the LLM's text generation rather than waiting for the full answer."
+  },
+  "architecture": {
+    "fr": "Réponse texte du pipeline RAG → segmentation par phrase → synthèse vocale en streaming → lecture audio progressive côté client, en parallèle de l'affichage du texte et des citations sources.",
+    "en": "Text answer from the RAG pipeline → sentence segmentation → streamed voice synthesis → progressive client-side audio playback, in parallel with the on-screen text and source citations."
+  },
+  "stack": ["Python", "Moteur TTS neuronal", "FastAPI", "WebAudio API"],
+  "architectureDiagram": {
+    "fr": "graph TD\n  RAG[\"Réponse texte (pipeline RAG)\"] --> SEG[\"Segmentation par phrase\"]\n  SEG --> TTS[\"Synthèse vocale streaming + cache audio\"]\n  TTS -->|\"Audio\"| PLAYER[\"Lecture progressive côté client\"]\n  RAG -.->|\"Texte + citations\"| PLAYER",
+    "en": "graph TD\n  RAG[\"Text answer (RAG pipeline)\"] --> SEG[\"Sentence segmentation\"]\n  SEG --> TTS[\"Streamed voice synthesis + audio cache\"]\n  TTS -->|\"Audio\"| PLAYER[\"Progressive client-side playback\"]\n  RAG -.->|\"Text + citations\"| PLAYER"
+  },
+  "metrics": [
+    {
+      "label": "Latence première syllabe",
+      "value": "900ms",
+      "impact": {
+        "fr": "L'utilisateur entend la réponse commencer avant même qu'elle soit intégralement générée, pour une expérience mains libres fluide plutôt qu'une attente silencieuse.",
+        "en": "The user hears the answer start before it is even fully generated, for a smooth hands-free experience rather than a silent wait."
+      }
+    },
+    {
+      "label": "Voix disponibles",
+      "value": "4",
+      "impact": {
+        "fr": "Un choix de voix qui permet d'adapter la restitution au contexte d'usage et aux préférences des utilisateurs.",
+        "en": "A choice of voices that lets playback adapt to the usage context and to user preferences."
+      }
+    },
+    {
+      "label": "Latence perçue réduite vs. attente complète",
+      "value": "60%",
+      "estimated": true,
+      "impact": {
+        "fr": "Estimation par rapport à une lecture qui attendrait la génération complète du texte avant de démarrer la synthèse vocale.",
+        "en": "Estimated relative to a playback flow that would wait for the full text to be generated before starting voice synthesis."
+      }
+    }
+  ],
+  "results": {
+    "fr": "Une restitution vocale fluide, pensée comme un complément à l'affichage textuel plutôt qu'un remplacement, pour les cas d'usage mains libres et l'accessibilité.",
+    "en": "Smooth voice playback, designed as a complement to the on-screen text rather than a replacement, for hands-free use cases and accessibility."
+  },
+  "challenges": {
+    "fr": "Synchroniser la synthèse vocale en streaming avec la génération progressive du texte par le LLM, sans latence perceptible ni désynchronisation entre l'audio et les citations affichées à l'écran.",
+    "en": "Synchronizing streamed voice synthesis with the LLM's progressive text generation, without perceptible latency or desync between the audio and the citations shown on screen."
+  },
+  "timeline": "2026",
+  "links": {},
+  "featured": false
+}

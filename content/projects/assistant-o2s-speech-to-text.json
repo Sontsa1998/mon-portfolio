@@ -1,0 +1,68 @@
+{
+  "slug": "assistant-o2s-speech-to-text",
+  "title": {
+    "fr": "Interface Vocale de l'Assistant O2S — Speech-to-Text",
+    "en": "O2S Assistant Voice Interface — Speech-to-Text"
+  },
+  "category": "voice-audio",
+  "coverImage": "/images/projects/assistant-o2s-speech-to-text/cover.svg",
+  "gallery": [],
+  "summary": {
+    "fr": "Entrée vocale ajoutée à l'assistant documentaire O2S pour les utilisateurs en mobilité, sans modifier le pipeline RAG existant.",
+    "en": "Voice input added to the O2S documentation assistant for users on the move, without altering the existing RAG pipeline."
+  },
+  "context": {
+    "fr": "Les utilisateurs terrain de la documentation O2S posent souvent leurs questions dans des contextes où la saisie au clavier est peu pratique (déplacement, poste partagé). L'objectif était d'ajouter une entrée vocale à Kiss My Agent V3 sans complexifier son architecture existante ni dégrader la qualité des réponses.",
+    "en": "Field users of the O2S documentation often ask questions in contexts where typing is impractical (on the move, shared workstation). The goal was to add voice input to Kiss My Agent V3 without complicating its existing architecture or degrading answer quality."
+  },
+  "approach": {
+    "fr": "Intégration d'un module de transcription vocale (Whisper) en amont du pipeline RAG existant, avec détection automatique de la langue (français/anglais), suppression du bruit ambiant et troncature des silences, et streaming de la transcription pour réduire la latence perçue par l'utilisateur.",
+    "en": "Integrated a speech-to-text module (Whisper) upstream of the existing RAG pipeline, with automatic language detection (French/English), ambient noise handling and silence trimming, and streamed transcription to reduce perceived latency."
+  },
+  "architecture": {
+    "fr": "Capture audio côté navigateur → endpoint de transcription (Whisper) → texte transcrit injecté tel quel dans le pipeline RAG hybride de Kiss My Agent V3, qui reste inchangé en aval.",
+    "en": "Browser-side audio capture → transcription endpoint (Whisper) → transcribed text fed directly into Kiss My Agent V3's hybrid RAG pipeline, which remains unchanged downstream."
+  },
+  "stack": ["Python", "OpenAI Whisper", "FastAPI", "WebAudio API"],
+  "architectureDiagram": {
+    "fr": "graph TD\n  MIC[\"Micro navigateur (WebAudio API)\"] --> PRE[\"Détection langue + réduction bruit\"]\n  PRE --> WHISPER[\"Transcription Whisper (streaming)\"]\n  WHISPER -->|\"Texte transcrit\"| RAG[\"Pipeline RAG — Kiss My Agent V3 (inchangé)\"]",
+    "en": "graph TD\n  MIC[\"Browser mic (WebAudio API)\"] --> PRE[\"Language detection + noise reduction\"]\n  PRE --> WHISPER[\"Whisper transcription (streaming)\"]\n  WHISPER -->|\"Transcribed text\"| RAG[\"RAG pipeline — Kiss My Agent V3 (unchanged)\"]"
+  },
+  "metrics": [
+    {
+      "label": "WER (Word Error Rate)",
+      "value": "7%",
+      "impact": {
+        "fr": "Un taux d'erreur de transcription bas, y compris avec les accents et le vocabulaire technique métier, pour ne pas dégrader la qualité de recherche documentaire en aval.",
+        "en": "A low transcription error rate, even with accents and domain-specific technical vocabulary, so downstream document retrieval quality isn't degraded."
+      }
+    },
+    {
+      "label": "Latence de transcription",
+      "value": "1.8s",
+      "impact": {
+        "fr": "Un délai assez court pour que l'entrée vocale reste plus rapide que la saisie au clavier dans les contextes visés (mobilité, poste partagé).",
+        "en": "Short enough that voice input stays faster than typing in the targeted contexts (on the move, shared workstation)."
+      }
+    },
+    {
+      "label": "Langues détectées automatiquement",
+      "value": "2 (FR/EN)",
+      "impact": {
+        "fr": "Aucune bascule manuelle de langue à gérer par l'utilisateur : l'assistant s'adapte à la langue parlée.",
+        "en": "No manual language switch for the user to manage: the assistant adapts to the spoken language."
+      }
+    }
+  ],
+  "results": {
+    "fr": "Réduction de la friction pour les utilisateurs en mobilité, sans dégrader la qualité des réponses de l'assistant puisque le pipeline RAG en aval reste strictement inchangé.",
+    "en": "Reduced friction for users on the move, without degrading the assistant's answer quality since the downstream RAG pipeline is left strictly unchanged."
+  },
+  "challenges": {
+    "fr": "Gérer le bruit ambiant et les accents variés d'un environnement professionnel réel ; maintenir une latence perçue faible malgré l'étape de transcription supplémentaire avant la recherche documentaire.",
+    "en": "Handling ambient noise and varied accents in a real professional environment; keeping perceived latency low despite the extra transcription step ahead of document retrieval."
+  },
+  "timeline": "2026",
+  "links": {},
+  "featured": false
+}
