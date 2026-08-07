@@ -62,6 +62,7 @@ export function ProjectCard({ project }: { project: Project }) {
                 <TechIcon
                   key={tech}
                   name={tech}
+                  compact
                   className="size-7 border-white/20 bg-white/15 text-white backdrop-blur-sm hover:border-white/40 hover:text-white"
                 />
               ))}

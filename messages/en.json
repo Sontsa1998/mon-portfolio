@@ -44,7 +44,7 @@
   "about": {
     "kicker": "About",
     "title": "A profile at the crossroads of data and AI",
-    "intro": "Currently a Data Engineer at Groupe Harvest in Paris, on a work-study program as part of an RNCP Bac+5 \"Digital Innovation Manager\" degree. My work spans data engineering, machine learning engineering, data analytics and agentic AI.",
+    "intro": "With over 5 years of experience in the data field, I'm currently a Data Engineer at Groupe Harvest in Paris, on a work-study program as part of an RNCP Bac+5 \"Digital Innovation Manager\" degree. My work spans data engineering, machine learning engineering, data analytics and agentic AI.",
     "intlTitle": "International experience",
     "intlText": "Professional experience in the United Arab Emirates that shaped an ability to thrive in multicultural, high-expectation environments.",
     "searchTitle": "Currently looking for",
@@ -69,9 +69,9 @@
         "description": "Integrated and prepared multi-source data with Alteryx and Python to power Power BI dashboards and deliver reliable KPIs to business teams."
       },
       {
-        "period": "Since 2025",
-        "title": "Data Engineer & AI Engineer (Work-study) — Groupe Harvest",
-        "description": "Designed and productionized a hybrid RAG agent (LangGraph, Qdrant, LLM-as-judge) and an XGBoost churn prediction model, as part of the RNCP Bac+5 \"Digital Innovation Manager\" degree."
+        "period": "09/2025 – 09/2026",
+        "title": "AI Engineer (Fixed-term) — Groupe Harvest",
+        "description": "Designed and productionized a hybrid RAG agent (LangGraph, Qdrant, LLM-as-judge) and an XGBoost churn prediction model for Groupe Harvest."
       },
       {
         "period": "From October 2026",

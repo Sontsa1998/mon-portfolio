@@ -44,7 +44,7 @@
   "about": {
     "kicker": "À propos",
     "title": "Un profil à la croisée de la donnée et de l'IA",
-    "intro": "Actuellement Data Engineer chez Groupe Harvest à Paris, en alternance dans le cadre d'un RNCP Bac+5 « Manager de l'Innovation Numérique ». Mon champ d'action couvre l'ingénierie de données, le machine learning engineering, la data analytics et l'IA agentique.",
+    "intro": "Fort de plus de 5 ans d'expérience dans le secteur de la data, je suis actuellement Data Engineer chez Groupe Harvest à Paris, en alternance dans le cadre d'un RNCP Bac+5 « Manager de l'Innovation Numérique ». Mon champ d'action couvre l'ingénierie de données, le machine learning engineering, la data analytics et l'IA agentique.",
     "intlTitle": "Expérience internationale",
     "intlText": "Une expérience professionnelle aux Émirats Arabes Unis qui a nourri une capacité à évoluer dans des contextes multiculturels et à haute exigence.",
     "searchTitle": "Recherche actuelle",
@@ -69,9 +69,9 @@
         "description": "Intégration et préparation de données multi-sources avec Alteryx et Python pour la production de tableaux de bord Power BI et la restitution de KPI fiables aux équipes métiers."
       },
       {
-        "period": "Depuis 2025",
-        "title": "Data Engineer & AI Engineer (Alternance) — Groupe Harvest",
-        "description": "Conception et industrialisation d'un agent RAG hybride en production (LangGraph, Qdrant, LLM-as-judge) et d'un modèle XGBoost de prédiction du churn, dans le cadre du RNCP Bac+5 « Manager de l'Innovation Numérique »."
+        "period": "09/2025 – 09/2026",
+        "title": "AI Engineer (CDD) — Groupe Harvest",
+        "description": "Conception et industrialisation d'un agent RAG hybride en production (LangGraph, Qdrant, LLM-as-judge) et d'un modèle XGBoost de prédiction du churn pour le Groupe Harvest."
       },
       {
         "period": "À partir d'octobre 2026",

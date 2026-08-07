@@ -120,7 +120,7 @@ export function ProjectDetail({ project }: { project: Project }) {
 
       <div className="mx-auto max-w-4xl px-6 py-16">
         <Tabs defaultValue="overview">
-          <TabsList className="mb-8 flex h-auto flex-wrap justify-start gap-1 bg-transparent p-0">
+          <TabsList className="mb-8 h-auto! w-full flex-wrap items-start justify-start gap-2 bg-transparent p-0">
             {(["overview", "approach", "metrics", "challenges", "gallery"] as const)
               .filter(
                 (tab) =>
@@ -132,7 +132,7 @@ export function ProjectDetail({ project }: { project: Project }) {
                 <TabsTrigger
                   key={tab}
                   value={tab}
-                  className="cursor-hover rounded-full border border-border px-4 py-2 text-sm data-[state=active]:border-transparent data-[state=active]:bg-gradient-to-br data-[state=active]:from-[var(--accent-from)] data-[state=active]:to-[var(--accent-to)] data-[state=active]:text-white"
+                  className="cursor-hover h-auto! flex-none rounded-full border border-border px-4 py-2 text-sm data-[state=active]:border-transparent data-[state=active]:bg-gradient-to-br data-[state=active]:from-[var(--accent-from)] data-[state=active]:to-[var(--accent-to)] data-[state=active]:text-white"
                 >
                   {t(`tabs.${tab}`)}
                 </TabsTrigger>
